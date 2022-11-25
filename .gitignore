@@ -1,0 +1,26 @@
+/node_modules
+jspm_packages
+swagger
+
+# Serverless directories
+.serverless
+
+/dist
+/build
+/.build
+/out-tsc
+
+
+.project
+
+# Visual Studio Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+
+# System files
+.DS_Store
+Thumbs.db

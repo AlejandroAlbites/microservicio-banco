@@ -1,0 +1,62 @@
+service: dollar-change-bank
+frameworkVersion: '3'
+
+plugins:
+  - serverless-auto-swagger2.0
+  - serverless-esbuild
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: us-east-2
+  stage: dev
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource:
+        - arn:aws:dynamodb:us-east-2:789316220133:table/ServicesBankTable
+
+functions:
+  createCard:
+    handler: src/handler.createCard
+    events:
+      - httpApi:
+          path: /card
+          method: post
+  
+  findCard:
+    handler: src/handler.findCardByAccountNumber
+    events:
+      - httpApi:
+          path: /card/{accountNumber}
+          method: get
+  
+  findCards:
+    handler: src/handler.findCards
+    events:
+      - httpApi:
+          path: /card
+          method: get
+  
+  updateCard:
+    handler: src/handler.updateAvailableMoney
+    events:
+      - httpApi:
+          path: /card/{accountNumber}
+          method: put
+
+resources:
+  Resources:
+    ServicesBankTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ServicesBankTable
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: accountNumber
+            AttributeType: S
+        KeySchema:
+          - AttributeName: accountNumber
+            KeyType: HASH
+
