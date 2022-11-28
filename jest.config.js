@@ -1,6 +1,8 @@
 /* eslint-disable no-undef */
-/** @type {import('ts-jest').JestConfigWithTsJest} */
+// /** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
-  preset: "ts-jest",
+  // preset: "ts-jest",
+  roots: ["<rootDir>/dist/"],
+  preset: "@shelf/jest-dynamodb",
   testEnvironment: "node",
 };

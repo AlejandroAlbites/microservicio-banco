@@ -1,10 +1,8 @@
-
-export interface Car {
-    
-        id: string;
-        accountNumber: string;
-        availableMoney: string;
-        typeCard: string;
-        createdAt: string;
-        updatedAt: string;
+export interface Card {
+  id: string;
+  accountNumber: string;
+  availableMoney: string;
+  typeCard: string;
+  createdAt: string;
+  updatedAt: string;
 }

@@ -12,6 +12,7 @@
   "plugins": ["@typescript-eslint"],
   "rules": {
     "class-methods-use-this": "off",
-    "newline-before-return": 2
+    "newline-before-return": 2,
+    "@typescript-eslint/no-non-null-assertion": "warn"
   }
 }

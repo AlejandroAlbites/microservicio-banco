@@ -24,31 +24,27 @@ functions:
       - httpApi:
           path: /card
           method: post
-    
-  
+
   findCard:
     handler: src/function/bank.findCardByAccountNumber
     events:
       - httpApi:
           path: /card/{accountNumber}
           method: get
-       
-  
+
   findCards:
     handler: src/function/bank.findCards
     events:
       - httpApi:
           path: /card
           method: get
-      
-  
+
   updateCard:
     handler: src/function/bank.updateAvailableMoney
     events:
       - httpApi:
           path: /card/{accountNumber}
           method: put
-  
 
 resources:
   Resources:
@@ -63,4 +59,3 @@ resources:
         KeySchema:
           - AttributeName: accountNumber
             KeyType: HASH
-
