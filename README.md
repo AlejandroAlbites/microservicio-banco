@@ -1,92 +1,63 @@
-<!--
-title: 'AWS Simple HTTP Endpoint example in NodeJS'
-description: 'This template demonstrates how to make a simple HTTP API with Node.js running on AWS Lambda and API Gateway using the Serverless Framework.'
-layout: Doc
-framework: v3
-platform: AWS
-language: nodeJS
-authorLink: 'https://github.com/serverless'
-authorName: 'Serverless, inc.'
-authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
--->
+# Servicio de Banco
 
-# Serverless Framework Node HTTP API on AWS
+Microservicio de Banco utilizado para el proyecto Cambio de Dolar.
 
-This template demonstrates how to make a simple HTTP API with Node.js running on AWS Lambda and API Gateway using the Serverless Framework.
+## Rutas del servicio
 
-This template does not include any kind of persistence (database). For more advanced examples, check out the [serverless/examples repository](https://github.com/serverless/examples/) which includes Typescript, Mongo, DynamoDB and other examples.
+Link del servicio: `https://0i2exyy104.execute-api.us-east-2.amazonaws.com/`
+Link del swagger: `https://0i2exyy104.execute-api.us-east-2.amazonaws.com/swagger`
 
-## Usage
+## Rutas del servicio en el proxy
 
-### Deployment
+Link del servicio: `https://r5swknv9uh.execute-api.sa-east-1.amazonaws.com/v1/bank`
+Link del swagger: `https://r5swknv9uh.execute-api.sa-east-1.amazonaws.com/v1/bank/swagger`
 
-```
-$ serverless deploy
-```
+### Metodos
 
-After deploying, you should see output similar to:
+#### POST
 
-```bash
-Deploying aws-node-http-api-project to stage dev (us-east-1)
+Permite crear una nueva tarjeta:
 
-✔ Service deployed to stack aws-node-http-api-project-dev (152s)
+`https://0i2exyy104.execute-api.us-east-2.amazonaws.com/card`
 
-endpoint: GET - https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/
-functions:
-  hello: aws-node-http-api-project-dev-hello (1.9 kB)
-```
+Ejemplo:
 
-_Note_: In current form, after deployment, your API is public and can be invoked by anyone. For production deployments, you might want to configure an authorizer. For details on how to do that, refer to [http event docs](https://www.serverless.com/framework/docs/providers/aws/events/apigateway/).
+`{
+    "accountNumber": "555555555",
+    "availableMoney": "300",
+    "typeCard": "soles"
+}`
 
-### Invocation
+Parametros:
 
-After successful deployment, you can call the created application via HTTP:
+- accountNumber: Recibe solo 9 numeros, enviar como string
+- availableMoney: Recibe solo numeros, enviar como string
+- typeCard: Recibe dos parametros "soles" y "dolares"
 
-```bash
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/
-```
+#### PUT
 
-Which should result in response similar to the following (removed `input` content for brevity):
+Permite actualizar el dinero disponible en las tarjetas
 
-```json
-{
-  "message": "Go Serverless v2.0! Your function executed successfully!",
-  "input": {
-    ...
-  }
-}
-```
+`https://0i2exyy104.execute-api.us-east-2.amazonaws.com/card/{accountNumber}`
 
-### Local development
+Recibe en el pathParams el numero de cuenta para hacer el update.
 
-You can invoke your function locally by using the following command:
+`{
+"availableMoney": "500"
+}`
 
-```bash
-serverless invoke local --function hello
-```
+En el body enviar el availableMoney, el valor debe ser entero y string.
 
-Which should result in response similar to the following:
+#### GET by Account Number
 
-```
-{
-  "statusCode": 200,
-  "body": "{\n  \"message\": \"Go Serverless v3.0! Your function executed successfully!\",\n  \"input\": \"\"\n}"
-}
-```
+Permite obtener los datos de una tarjeta
 
+`https://0i2exyy104.execute-api.us-east-2.amazonaws.com/card/{accountNumber}`
 
-Alternatively, it is also possible to emulate API Gateway and Lambda locally by using `serverless-offline` plugin. In order to do that, execute the following command:
+Se debe ingresar el numero de cuenta la url.
 
-```bash
-serverless plugin install -n serverless-offline
-```
+#### GET
 
-It will add the `serverless-offline` plugin to `devDependencies` in `package.json` file as well as will add it to `plugins` in `serverless.yml`.
+Permite obtener los datos de las tarjetas, solo a metodo de ejemplo
 
-After installation, you can start local emulation with:
-
-```
-serverless offline
-```
-
-To learn more about the capabilities of `serverless-offline`, please refer to its [GitHub repository](https://github.com/dherault/serverless-offline).
+`https://0i2exyy104.execute-api.us-east-2.amazonaws.com/card`
