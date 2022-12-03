@@ -12,6 +12,13 @@ Link del swagger: `https://0i2exyy104.execute-api.us-east-2.amazonaws.com/swagge
 Link del servicio: `https://r5swknv9uh.execute-api.sa-east-1.amazonaws.com/v1/bank`
 Link del swagger: `https://r5swknv9uh.execute-api.sa-east-1.amazonaws.com/v1/bank/swagger`
 
+### Desplegar en AWS
+
+1. Clonar el repositorio
+2. Ejecutar `npm i`
+3. Tener activa una cuenta en aws-cli
+4. Ejecutar `serverless deploy --verbose`
+
 ### Metodos
 
 #### POST
